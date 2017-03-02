@@ -2,6 +2,18 @@
 #include <sstream>
 #include <iomanip>
 #include "frameGenerator.h"
+#include "renderContext.h"
+
+FrameGenerator::FrameGenerator() : 
+  rend(RenderContext::getInstance()->getRenderer()), 
+  window(RenderContext::getInstance()->getWindow()), 
+  WIDTH( Gamedata::getInstance().getXmlInt("view/width") ),
+  HEIGHT( Gamedata::getInstance().getXmlInt("view/height") ),
+  USERNAME( Gamedata::getInstance().getXmlStr("username") ),
+  MAX_FRAMES( Gamedata::getInstance().getXmlInt("maxFrames") ),
+  frameCount(0) 
+{}
+
 
 void FrameGenerator::makeFrame() {
   if ( frameCount > MAX_FRAMES ) return;
@@ -20,5 +32,6 @@ void FrameGenerator::makeFrame() {
   std::string filename( strm.str() );
   std::cout << "Making frame: " << filename << std::endl;
   SDL_SaveBMP(screenCap, filename.c_str());
+  SDL_FreeSurface(screenCap);
 }
 

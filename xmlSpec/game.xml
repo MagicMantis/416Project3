@@ -1,0 +1,72 @@
+<?xml version = "1.0"?>
+<GameData>
+<!-- screenTitle is also used to identify you and your animation. 
+     So make sure to include your name as part of the screenTitle -->
+<screenTitle>Star Animation</screenTitle>
+<maxStringSize>50</maxStringSize>
+<nameWidth>150</nameWidth>
+
+<frameCapOn>true</frameCapOn>
+<period>17</period>
+
+<maxFrames>300</maxFrames>
+<username>malloy</username>
+
+<view>
+  <width>854</width>
+  <height>480</height>
+</view>
+
+<world>
+  <width>2000</width>
+  <height>900</height>
+</world>
+
+<back>
+  <file>images/checkerboard.bmp</file>
+  <factor>1</factor>
+  <transparency>false</transparency>
+</back>
+
+<hills>
+  <file>images/background.png</file>
+  <factor>2</factor>
+  <transparency>false</transparency>
+</hills>
+
+<font name="font">
+  <file>fonts/arial.ttf</file>
+  <size>24</size>
+  <red>255</red>
+  <green>255</green>
+  <blue>255</blue>
+  <alpha>0</alpha>
+</font>
+
+<spinstar>
+  <file>images/spinstar.png</file>
+  <startLoc x="120" y="140"/>
+  <frames>4</frames>
+  <frameInterval>20</frameInterval>
+  <speedX>-200</speedX>
+  <speedY>200</speedY>
+  <transparency>true</transparency>
+</spinstar>
+
+<star>
+  <file>images/yellowstar32.png</file>
+  <startLoc x="10" y="10"/>
+  <speedX>-175</speedX>
+  <speedY>-175</speedY>
+  <transparency>true</transparency>
+</star>
+
+<greenorb>
+  <file>images/greenball.bmp</file>
+  <startLoc x="320" y="240"/>
+  <speedX>175</speedX>
+  <speedY>175</speedY>
+  <transparency>true</transparency>
+</greenorb>
+
+</GameData>

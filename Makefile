@@ -1,34 +1,35 @@
-# Change the following values to suit your system.
+CXX = clang++
 
-CFLAGS=`sdl2-config --cflags` -g -W -Wall -Weffc++ -Wextra -pedantic -O0 -I `sdl2-config --prefix`/include/
-SDL_LIB=`sdl2-config --libs` -lSDL2_image
-CCC=clang++
+# Warnings frequently signal eventual errors:
+CXXFLAGS=`sdl2-config --cflags` -g -W -Wall -std=c++11 -Weffc++ -Wextra -pedantic -O0 -I `sdl2-config --prefix`/include/
 
-OBJECTS = frameGenerator.o gameObject.o rain.o building.o detective.o criminal.o \
-stageObject.o lightning.o fadeout.o textureManager.o objectManager.o
+LDFLAGS = `sdl2-config --libs` -lm -lexpat -lSDL2_ttf -lSDL2_image
 
-run: main.o $(OBJECTS)
-	$(CCC) $(CFLAGS) main.cpp -o run $(OBJECTS) $(SDL_LIB)
+OBJS = \
+  renderContext.o \
+	ioMod.o \
+	parseXML.o \
+	gamedata.o \
+	viewport.o \
+	world.o \
+	unpack.o \
+	frame.o \
+	frameFactory.o \
+	frameGenerator.o \
+	sprite.o \
+	multisprite.o \
+	vector2f.o \
+	clock.o \
+	engine.o \
+	main.o
+EXEC = run
 
-main.o: main.cpp frameGenerator.h
-	$(CCC) $(CFLAGS) -c main.cpp
+%.o: %.cpp %.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-frameGenerator.o: frameGenerator.cpp frameGenerator.h
-	$(CCC) $(CFLAGS) -c frameGenerator.cpp
-
-gameObject.o: gameObject.cpp gameObject.h
-	$(CCC) $(CFLAGS) -c gameObject.cpp
-
-textureManager.o: textureManager.cpp textureManager.h
-	$(CCC) $(CFLAGS) -c textureManager.cpp
-
-objectManager.o: objectManager.cpp objectManager.h
-	$(CCC) $(CFLAGS) -c objectManager.cpp
-
-stageObject.o: stageObject.cpp stageObject.h gameObject.h
-	$(CCC) $(CFLAGS) -c stageObject.cpp
+$(EXEC): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS) $(LDFLAGS)
 
 clean:
-	rm -f run *.o
-	rm -f *~
-	rm -f frames/*.bmp
+	rm -rf $(OBJS)
+	rm -rf $(EXEC)
