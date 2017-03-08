@@ -12,9 +12,9 @@
 
 Engine::~Engine() { 
   std::cout << "Terminating program" << std::endl;
-  for (auto& it : sprites) {
-    delete it;
-  }
+  // for (auto& it : sprites) {
+  //   delete it;
+  // }
 }
 
 Engine::Engine() :
@@ -25,12 +25,13 @@ Engine::Engine() :
   world("back", Gamedata::getInstance().getXmlInt("back/factor") ),
   hills("hills", Gamedata::getInstance().getXmlInt("hills/factor") ),
   viewport( Viewport::getInstance() ),
-  sprites(),
+  // sprites(),
   currentSprite(-1),
 
   makeVideo( false )
 {
-  sprites.push_back( new Sludge() );
+  ObjectManager::getInstance().initObjects();
+  //sprites.push_back( new Sludge() );
   switchSprite();
   std::cout << "Loading complete" << std::endl;
 }
@@ -42,22 +43,24 @@ void Engine::draw() const {
   strm << "fps: " << clock.getFps();
   io.writeText(strm.str(), 30, 60);
 
-  for(auto* s : sprites) s->draw();
+  //for(auto* s : sprites) s->draw();
+  ObjectManager::getInstance().drawObjects();
 
   viewport.draw();
   SDL_RenderPresent(renderer);
 }
 
 void Engine::update(Uint32 ticks) {
-  for(auto* s : sprites) s->update(ticks);
+  ObjectManager::getInstance().updateObjects(ticks);
+  //for(auto* s : sprites) s->update(ticks);
   world.update();
   hills.update();
   viewport.update(); // always update viewport last
 }
 
 void Engine::switchSprite(){
-  currentSprite = ++currentSprite % sprites.size();
-  Viewport::getInstance().setObjectToTrack(sprites[currentSprite]);
+  currentSprite = ++currentSprite % ObjectManager::getInstance().getInstanceCount();
+  Viewport::getInstance().setObjectToTrack(ObjectManager::getInstance().getObject(currentSprite));
 }
 
 void Engine::play() {

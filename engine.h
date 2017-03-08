@@ -23,7 +23,8 @@ private:
   World world, hills;
   Viewport& viewport;
 
-  std::vector<Drawable*> sprites;
+  // ObjectManager objectManager;
+  // std::vector<Drawable*> sprites;
 
   int currentSprite;
   bool makeVideo;

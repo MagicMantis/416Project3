@@ -8,16 +8,20 @@
  */
 class ObjectManager {
 public:
-	ObjectManager() : gameObjects(), instanceSets() {}
+	static ObjectManager& getInstance();
 	~ObjectManager();
 
 	void addObject(Drawable*);
-	void initGameObjects(); //generate all objects in the scene
+	void initObjects(); //generate all objects in the scene
 	void updateObjects(Uint32 ticks); //update all objects
-	void drawObjects(); //draw all objects
+	void drawObjects() const; //draw all objects
+
+	int getInstanceCount() const { return gameObjects.size(); }
+	Drawable* getObject(int index) const { return gameObjects[index]; }
 
 	std::vector<Drawable*>* getInstancesOfType(const std::string&);
 private:
+	ObjectManager() : gameObjects(), instanceSets() {}
 	std::vector<Drawable*> gameObjects;
 	std::unordered_map<std::string, std::vector<Drawable*>*> instanceSets;
 };

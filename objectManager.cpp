@@ -1,6 +1,13 @@
 #include "objectManager.h"
+#include "sludge.h"
 
-void ObjectManager::initGameObjects() {
+ObjectManager& ObjectManager::getInstance() {
+  static ObjectManager objectManager;
+  return objectManager;
+}
+
+
+void ObjectManager::initObjects() {
 	for (int i = 0; i < 10; i++) {
 		addObject( new Sludge() );
 	}
@@ -29,16 +36,15 @@ void ObjectManager::updateObjects(Uint32 ticks) {
 }
 
 //draw all objects
-void ObjectManager::drawObjects() {
+void ObjectManager::drawObjects() const {
 	for ( size_t   i = 0; i < gameObjects.size(); i++ ) {
 		gameObjects[i]->draw();
 	}
 }
 
 ObjectManager::~ObjectManager() {
-	for (size_t i = 0; i < gameObjects.size(); i++) {
-		delete gameObjects[i];
-	}
+	for (auto& it : gameObjects) delete it;
+	for (auto& it : instanceSets) delete it.second;
 }
 
 std::vector<Drawable*>* ObjectManager::getInstancesOfType(const std::string& type) {

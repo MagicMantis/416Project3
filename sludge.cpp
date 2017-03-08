@@ -32,6 +32,8 @@ void Sludge::update(Uint32 ticks) {
 		accel -= normalForce;
 	}
 
+	//other objects
+
 	//damping
 	accel -= dampingConstant * getVelocityY();
 
