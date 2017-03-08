@@ -8,7 +8,7 @@ ObjectManager& ObjectManager::getInstance() {
 
 
 void ObjectManager::initObjects() {
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 100; i++) {
 		addObject( new Sludge() );
 	}
 }
@@ -17,12 +17,9 @@ void ObjectManager::addObject(Drawable* obj) {
 	gameObjects.push_back(obj);
 	auto search = instanceSets.find(obj->getName());
     if(search != instanceSets.end()) {
-        std::cout << "Found " << search->first << " " << search->second << '\n';
         search->second->push_back(obj);
     }
     else {
-        std::cout << "Not found\n";
-        //search->second;
         instanceSets[obj->getName()] = new std::vector<Drawable*>();
         instanceSets[obj->getName()]->push_back(obj);
     }

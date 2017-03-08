@@ -14,6 +14,10 @@
 <maxFrames>300</maxFrames>
 <username>malloy</username>
 
+<gravityConstant>10.0</gravityConstant>
+<dampingConstant>0.05</dampingConstant>
+<maxSpeed>300.0</maxSpeed>
+
 <view>
   <width>854</width>
   <height>480</height>
@@ -76,6 +80,8 @@
 <sludge>
   <file>images/sludge.png</file>
   <transparency>true</transparency>
+  <radius>12.0</radius>
+  <seekSpeed>5.0</seekSpeed>
 </sludge>
 
 <greenorb>

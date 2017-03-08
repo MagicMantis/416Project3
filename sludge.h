@@ -9,4 +9,5 @@ public:
 	// void draw() const;
 	void update(Uint32 ticks);
 private:
+	float radius;
 };

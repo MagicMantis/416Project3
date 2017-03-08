@@ -67,3 +67,11 @@ void Sprite::update(Uint32 ticks) {
     setVelocityX( -std::abs( getVelocityX() ) );
   }  
 }
+
+float Sprite::getDistance(const Sprite* s) const {
+  return sqrt(pow(getX()-s->getX(), 2) + pow(getY()-s->getY(), 2));
+}
+
+float Sprite::getDistance(const Vector2f& v) const {
+  return sqrt(pow(getX()-v[0], 2) + pow(getY()-v[1], 2));
+}
