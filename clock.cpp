@@ -17,6 +17,8 @@ Clock::Clock() :
   FRAME_CAP_ON(Gamedata::getInstance().getXmlBool("frameCapOn")), 
   PERIOD(Gamedata::getInstance().getXmlInt("period")), 
   frames(0), 
+  frameQueue(),
+  frameMax(Gamedata::getInstance().getXmlInt("frameMax")),
   timeAtStart(0), 
   timeAtPause(0),
   currTicks(0), prevTicks(0), ticks(0) 
@@ -63,7 +65,9 @@ unsigned int Clock::getElapsedTicks() {
 }
 
 int Clock::getFps() const { 
-  if ( getSeconds() > 0 ) return frames/getSeconds();  
+  if ( frameQueue.size() < frameMax ) return 0;
+  float secs = (float)(SDL_GetTicks()-frameQueue.front())/1000.0;
+  if ( getSeconds() > 0 ) return frameMax/secs;  
   else if ( getTicks() > 5000 and getFrames() == 0 ) {
     throw std::string("Can't getFps if you don't increment the frames");
   }
@@ -80,6 +84,8 @@ int Clock::getAvgFps() const {
 void Clock::incrFrame() { 
   if ( !paused ) {
     ++frames; 
+    frameQueue.push(SDL_GetTicks());
+    if (frameQueue.size() > frameMax) frameQueue.pop();
   }
 }
 

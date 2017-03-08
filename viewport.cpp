@@ -29,7 +29,10 @@ void Viewport::draw() const {
   io.writeText("Tracking "+objectToTrack->getName(), 30, 30);
 
   int nameWidth = gdata.getXmlInt("nameWidth");
-  io.writeText("Joseph Savold", viewWidth/2-nameWidth/2, 30, nameWidth);
+  int titleWidth = gdata.getXmlInt("titleWidth");
+  SDL_Color red = {255,0,0,255};
+  io.writeText("Joseph Savold", viewWidth/2-nameWidth/2, 30, &red, nameWidth);
+  io.writeText("Nightmare", viewWidth/2-titleWidth/2, 60, &red, titleWidth);
 }
 
 void Viewport::update() {

@@ -17,6 +17,15 @@ Sprite::Sprite(const std::string& name) :
   frameHeight(frame->getHeight())
 { }
 
+Sprite::Sprite(const std::string& name, const Vector2f& pos) :
+  Drawable(name, pos, Vector2f(0,0)),
+  frame( RenderContext::getInstance()->getFrame(name) ),
+  worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
+  worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
+  frameWidth(frame->getWidth()),
+  frameHeight(frame->getHeight())
+{ }
+
 Sprite::Sprite(const Sprite& s) :
   Drawable(s), 
   frame(s.frame),

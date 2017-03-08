@@ -1,16 +1,6 @@
-#include "gameObject.h"
-#include "rain.h"
-#include "building.h"
-#include "texture.h"
-#include "detective.h"
-#include "criminal.h"
-#include "stageObject.h"
-#include "lightning.h"
-#include "fadeout.h"
-#include "textureManager.h"
+#include "drawable.h"
 #include <vector>
-
-const int rain_count = 200;
+#include <unordered_map>
 
 /**
  * ObjectManager class: this class contains a vector of all game
@@ -18,12 +8,16 @@ const int rain_count = 200;
  */
 class ObjectManager {
 public:
-	ObjectManager() : gameObjects() {}
+	ObjectManager() : gameObjects(), instanceSets() {}
 	~ObjectManager();
 
-	void initGameObjects(TextureManager& tm); //generate all objects in the scene
-	void updateObjects(int stage); //update all objects
-	void drawObjects(SDL_Renderer* rend); //draw all objects
+	void addObject(Drawable*);
+	void initGameObjects(); //generate all objects in the scene
+	void updateObjects(Uint32 ticks); //update all objects
+	void drawObjects(); //draw all objects
+
+	std::vector<Drawable*>* getInstancesOfType(const std::string&);
 private:
-	std::vector<GameObject*> gameObjects;
+	std::vector<Drawable*> gameObjects;
+	std::unordered_map<std::string, std::vector<Drawable*>*> instanceSets;
 };

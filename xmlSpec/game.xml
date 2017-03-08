@@ -5,8 +5,10 @@
 <screenTitle>Star Animation</screenTitle>
 <maxStringSize>50</maxStringSize>
 <nameWidth>150</nameWidth>
+<titleWidth>110</titleWidth>
 
 <frameCapOn>true</frameCapOn>
+<frameMax>100</frameMax>
 <period>17</period>
 
 <maxFrames>300</maxFrames>
@@ -53,6 +55,16 @@
   <transparency>true</transparency>
 </spinstar>
 
+<spinstar2>
+  <file>images/spinstar2.png</file>
+  <startLoc x="120" y="140"/>
+  <frames>4</frames>
+  <frameInterval>20</frameInterval>
+  <speedX>-150</speedX>
+  <speedY>150</speedY>
+  <transparency>true</transparency>
+</spinstar2>
+
 <star>
   <file>images/yellowstar32.png</file>
   <startLoc x="10" y="10"/>
@@ -60,6 +72,11 @@
   <speedY>-175</speedY>
   <transparency>true</transparency>
 </star>
+
+<sludge>
+  <file>images/sludge.png</file>
+  <transparency>true</transparency>
+</sludge>
 
 <greenorb>
   <file>images/greenball.bmp</file>

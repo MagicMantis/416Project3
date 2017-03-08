@@ -28,6 +28,6 @@ friend class RenderContext;
     textures(),
     frames()
   {}
-  FrameFactory(const FrameFactory&);
-  FrameFactory& operator=(const FrameFactory&);
+  FrameFactory(const FrameFactory&) = delete;
+  FrameFactory& operator=(const FrameFactory&) = delete;
 };

@@ -48,13 +48,13 @@ SDL_Surface* IOmod::readSurface(const std::string& filename) {
   return surface;
 }
 
-void IOmod::writeText(const std::string& msg, int x, int y,
-    int width, int height) const {
+void IOmod::writeText(const std::string& msg, int x, int y, 
+    SDL_Color* color, int width, int height) const {
   int textWidth;
   int textHeight;
 
   SDL_Surface* surface = 
-    TTF_RenderText_Solid(font, msg.c_str(), textColor);
+    TTF_RenderText_Solid(font, msg.c_str(), (color ? *color : textColor));
 
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
 

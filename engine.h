@@ -5,6 +5,7 @@
 #include "clock.h"
 #include "world.h"
 #include "viewport.h"
+#include "objectManager.h"
 
 class Engine {
 public:
@@ -30,6 +31,6 @@ private:
   void draw() const;
   void update(Uint32);
 
-  Engine(const Engine&);
-  Engine& operator=(const Engine&);
+  Engine(const Engine&) = delete;
+  Engine& operator=(const Engine&) = delete;
 };

@@ -4,16 +4,16 @@
 #include <iomanip>
 #include "sprite.h"
 #include "multisprite.h"
+#include "twoWayMultiSprite.h"
+#include "sludge.h"
 #include "gamedata.h"
 #include "engine.h"
 #include "frameGenerator.h"
 
 Engine::~Engine() { 
   std::cout << "Terminating program" << std::endl;
-  std::vector<Drawable*>::iterator it = sprites.begin();
-  while ( it != sprites.end() ) {
-    delete *it;
-    ++it;
+  for (auto& it : sprites) {
+    delete it;
   }
 }
 
@@ -30,8 +30,7 @@ Engine::Engine() :
 
   makeVideo( false )
 {
-  sprites.push_back( new Sprite("star") );
-  sprites.push_back( new MultiSprite("spinstar") );
+  sprites.push_back( new Sludge() );
   switchSprite();
   std::cout << "Loading complete" << std::endl;
 }
@@ -72,7 +71,7 @@ void Engine::play() {
     while ( SDL_PollEvent(&event) ) {
       keystate = SDL_GetKeyboardState(NULL);
       if (event.type ==  SDL_QUIT) { done = true; break; }
-      if(event.type == SDL_KEYDOWN) {
+      if (event.type == SDL_KEYDOWN) {
         if (keystate[SDL_SCANCODE_ESCAPE] || keystate[SDL_SCANCODE_Q]) {
           done = true;
           break;
@@ -88,13 +87,16 @@ void Engine::play() {
           switchSprite();
         }
         if (keystate[SDL_SCANCODE_F4] && !makeVideo) {
-          std::cout << "Initiating frame capture" << std::endl;
+          std::cout << "Initiating frame capture " << std::endl;
           makeVideo = true;
         }
         else if (keystate[SDL_SCANCODE_F4] && makeVideo) {
-          std::cout << "Terminating frame capture" << std::endl;
+          std::cout << "Terminating frame capture " << std::endl;
           makeVideo = false;
         }
+      }
+      if (event.type == SDL_MOUSEMOTION) {
+        Gamedata::getInstance().updateMouse(event.motion.x, event.motion.y);
       }
     }
     ticks = clock.getElapsedTicks();

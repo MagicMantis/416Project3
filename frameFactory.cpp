@@ -13,21 +13,15 @@ FrameFactory::~FrameFactory() {
   for(auto& fi : frames  ) delete fi.second;
 
   // Free multi-frame containers
-  std::map<std::string, std::vector<SDL_Texture*> >::iterator 
-    textures = multiTextures.begin();
-  while ( textures != multiTextures.end() ) {
-    for (unsigned int i = 0; i < textures->second.size(); ++i) {
-      SDL_DestroyTexture( textures->second[i] );
+  for (auto& mt : multiTextures) {
+    for (unsigned int i = 0; i < mt.second.size(); i++) {
+      SDL_DestroyTexture(mt.second[i]);
     }
-    ++textures;
   }
-  std::map<std::string, std::vector<Frame*> >::iterator 
-    frames = multiFrames.begin();
-  while ( frames != multiFrames.end() ) {
-    for (unsigned int i = 0; i < frames->second.size(); ++i) {
-      delete frames->second[i];
+  for (auto& mf : multiFrames) {
+    for (unsigned int i = 0; i < mf.second.size(); i++) {
+      delete mf.second[i];
     }
-    ++frames;
   }
 }
 

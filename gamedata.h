@@ -18,10 +18,14 @@ public:
   float getRandInRange(int min, int max) const;
   float getRandFloat(float min, float max) const;
   bool  checkTag(const std::string&)const;
+  int getMouseX() const { return mouseX; }
+  int getMouseY() const { return mouseY; }
+  void updateMouse(int x, int y) { mouseX = x; mouseY = y; }
 
 private:
   ParseXML parser;
   const map<std::string, std::string> gameData;
+  int mouseX, mouseY;
 
   Gamedata(const std::string& fn = "xmlSpec/game.xml");
   Gamedata(const Gamedata&);

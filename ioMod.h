@@ -9,7 +9,8 @@ public:
   ~IOmod();
   SDL_Texture* readTexture(const std::string& filename);
   SDL_Surface* readSurface(const std::string& filename);
-  void writeText(const std::string&, int, int, int=-1, int=-1) const;
+  void writeText(const std::string&, int, int, 
+    SDL_Color* = nullptr, int = -1, int = -1) const;
   SDL_Renderer* getRenderer() const { return renderer; }
 private:
   int init;

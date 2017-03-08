@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <string>
+#include <queue>
 
 class Engine;
 
@@ -18,6 +19,8 @@ private:
   const Uint32 PERIOD;
 
   unsigned int frames;
+  std::queue<unsigned int> frameQueue;
+  unsigned int frameMax;
 
   unsigned int timeAtStart;
   unsigned int timeAtPause;

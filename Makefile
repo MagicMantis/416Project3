@@ -18,7 +18,10 @@ OBJS = \
 	frameGenerator.o \
 	sprite.o \
 	multisprite.o \
+	twoWayMultiSprite.o \
 	vector2f.o \
+	sludge.o \
+	objectManager.o \
 	clock.o \
 	engine.o \
 	main.o
