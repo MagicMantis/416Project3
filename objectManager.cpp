@@ -10,13 +10,14 @@ ObjectManager& ObjectManager::getInstance() {
 
 void ObjectManager::initObjects() {
 	addObject( new Player("player") );
-	for (int i = 0; i < 100; i++) {
+	int sludgeCount = Gamedata::getInstance().getXmlInt("sludgeCount")/2;
+	for (int i = 0; i < sludgeCount; i++) {
 		Vector2f pos;
 		pos[0] = Gamedata::getInstance().getRandInRange(-200, 0);
 		pos[1] = Gamedata::getInstance().getRandInRange(200, 400);
 		addObject( new Sludge(pos) );
 	}
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < sludgeCount; i++) {
 		Vector2f pos;
 		int width = Gamedata::getInstance().getXmlInt("world/width");
 		pos[0] = Gamedata::getInstance().getRandInRange(width, width+200);
