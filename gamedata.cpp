@@ -15,7 +15,9 @@ Gamedata::Gamedata(const string& fn ) :
   parser(fn),
   gameData(parser.getXmlData()),
   mouseX(0),
-  mouseY(0)
+  mouseY(0),
+  rightKey(false),
+  leftKey(false)
 { }
 
 float Gamedata::getRandInRange(int min, int max) const {

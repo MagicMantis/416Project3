@@ -1,6 +1,7 @@
 #include "objectManager.h"
 #include "sludge.h"
 #include "player.h"
+#include "gamedata.h"
 
 ObjectManager& ObjectManager::getInstance() {
   static ObjectManager objectManager;
@@ -10,7 +11,17 @@ ObjectManager& ObjectManager::getInstance() {
 void ObjectManager::initObjects() {
 	addObject( new Player("player") );
 	for (int i = 0; i < 100; i++) {
-		addObject( new Sludge() );
+		Vector2f pos;
+		pos[0] = Gamedata::getInstance().getRandInRange(-200, 0);
+		pos[1] = Gamedata::getInstance().getRandInRange(200, 400);
+		addObject( new Sludge(pos) );
+	}
+	for (int i = 0; i < 100; i++) {
+		Vector2f pos;
+		int width = Gamedata::getInstance().getXmlInt("world/width");
+		pos[0] = Gamedata::getInstance().getRandInRange(width, width+200);
+		pos[1] = Gamedata::getInstance().getRandInRange(200, 400);
+		addObject( new Sludge(pos) );
 	}
 }
 

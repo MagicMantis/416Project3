@@ -33,9 +33,10 @@ void Sludge::update(Uint32 ticks) {
 	if (vspeed < 200.0) accel[1] += gravityConstant;
 
 	//impact bounce
-	if (getY() > (Gamedata::getInstance().getXmlInt("world/ground"))) {
+	if (getY()-getFrameHeight()/2 > (Gamedata::getInstance().getXmlInt("world/ground"))) {
 		float normalForce = (1.0)*pow((getY()-(getWorldHeight()-100)),2);
-		accel[1] -= normalForce;
+		accel[1] -= normalForce/5.0;
+		setY(Gamedata::getInstance().getXmlInt("world/ground")+getFrameHeight()/2);
 	}
 
 	//other objects
@@ -52,10 +53,12 @@ void Sludge::update(Uint32 ticks) {
 		}
 	}
 
-	//seek mouse
+	//seek target
 	Vector2f target = ObjectManager::getInstance().getObject("player")->getPosition();
 	//target[0] = Gamedata::getInstance().getMouseX() + Viewport::getInstance().getX();
 	//target[1] = Gamedata::getInstance().getMouseY() + Viewport::getInstance().getY();
+	target[0] += 32;
+	target[1] += 32;
 	float dist = getDistance(target);
 	float xratio = (getX()-target[0]) / dist;
 	float yratio = (getY()-target[1]) / dist;

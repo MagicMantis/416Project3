@@ -9,7 +9,9 @@ public:
 	virtual void update(Uint32 ticks);
 
 	void accelerate(float amount); 
+	void decelerate(float amount); 
 	void jump();
+	void stop();
 private:
 	bool onGround();
 };

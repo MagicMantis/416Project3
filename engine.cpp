@@ -70,57 +70,77 @@ void Engine::switchSprite(){
 
 void Engine::play() {
   SDL_Event event;
-  const Uint8* keystate;
   bool done = false;
   Uint32 ticks = clock.getElapsedTicks();
   FrameGenerator frameGen;
 
   while ( !done ) {
     while ( SDL_PollEvent(&event) ) {
-      keystate = SDL_GetKeyboardState(NULL);
       if (event.type ==  SDL_QUIT) { done = true; break; }
       if (event.type == SDL_KEYDOWN) {
-        if (keystate[SDL_SCANCODE_ESCAPE] || keystate[SDL_SCANCODE_Q]) {
-          done = true;
-          break;
+        switch ( event.key.keysym.sym ) {
+          Player* p;
+          case SDLK_ESCAPE:
+            done = true;
+            break;
+          case SDLK_q:
+            done = true;
+            break;
+          case SDLK_RIGHT:
+            Gamedata::getInstance().updateRight(true);
+            break;
+          case SDLK_LEFT:
+            Gamedata::getInstance().updateLeft(true);
+            break;
+          case SDLK_SPACE:
+            p = (Player*) ObjectManager::getInstance().getObject("player");
+            p->jump();
+            break;
+          case SDLK_DOWN:
+            p = (Player*) ObjectManager::getInstance().getObject("player");
+            p->stop();
+            break;
+          case SDLK_p:
+            if ( clock.isPaused() ) clock.unpause();
+            else clock.pause();
+            break;
+          case SDLK_s:
+            clock.toggleSloMo();
+            break;
+          case SDLK_t:
+            switchSprite();
+            break;
+          case SDLK_F4:
+            if (!makeVideo) {
+              std::cout << "Initiating frame capture " << std::endl;
+              makeVideo = true;
+            } else if (makeVideo) {
+              std::cout << "Terminating frame capture " << std::endl;
+              makeVideo = false;
+            }
+            break;
+          default:
+            break;
         }
-        if ( keystate[SDL_SCANCODE_RIGHT] ) {
-          Player* p = (Player*) ObjectManager::getInstance().getObject("player");
-          float accel = Gamedata::getInstance().getXmlFloat("player/acceleration");
-          p->accelerate(accel);
-        }
-        if ( keystate[SDL_SCANCODE_LEFT] ) {
-          Player* p = (Player*) ObjectManager::getInstance().getObject("player");
-          float accel = Gamedata::getInstance().getXmlFloat("player/acceleration");
-          p->accelerate(-accel);
-        }
-        if ( keystate[SDL_SCANCODE_SPACE] ) {
-          Player* p = (Player*) ObjectManager::getInstance().getObject("player");
-          p->jump();
-        }
-        if ( keystate[SDL_SCANCODE_P] ) {
-          if ( clock.isPaused() ) clock.unpause();
-          else clock.pause();
-        }
-        if ( keystate[SDL_SCANCODE_S] ) {
-          clock.toggleSloMo();
-        }
-        if ( keystate[SDL_SCANCODE_T] ) {
-          switchSprite();
-        }
-        if (keystate[SDL_SCANCODE_F4] && !makeVideo) {
-          std::cout << "Initiating frame capture " << std::endl;
-          makeVideo = true;
-        }
-        else if (keystate[SDL_SCANCODE_F4] && makeVideo) {
-          std::cout << "Terminating frame capture " << std::endl;
-          makeVideo = false;
+        
+      }
+      if (event.type == SDL_KEYUP) {        
+        switch (event.key.keysym.sym) {
+          case SDLK_RIGHT:
+            Gamedata::getInstance().updateRight(false);
+            break;
+          case SDLK_LEFT:
+            Gamedata::getInstance().updateLeft(false);
+            break;
+          default:
+            break;
         }
       }
       if (event.type == SDL_MOUSEMOTION) {
         Gamedata::getInstance().updateMouse(event.motion.x, event.motion.y);
       }
     }
+
     ticks = clock.getElapsedTicks();
     if ( ticks > 0 ) {
       clock.incrFrame();

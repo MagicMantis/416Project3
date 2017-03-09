@@ -15,19 +15,19 @@
 <username>malloy</username>
 
 <gravityConstant>10.0</gravityConstant>
-<dampingConstant>0.05</dampingConstant>
-<maxSpeed>300.0</maxSpeed>
+<dampingConstant>0.10</dampingConstant>
+<maxSpeed>400.0</maxSpeed>
 <groundHeight>20.0</groundHeight>
 
 <view>
-  <width>512</width>
+  <width>700</width>
   <height>384</height>
 </view>
 
 <world>
   <width>3000</width>
   <height>384</height>
-  <ground>300</ground>
+  <ground>330</ground>
 </world>
 
 <farbuildings>
@@ -69,7 +69,7 @@
 
 <player>
   <file>images/running.png</file>
-  <startLoc x="120" y="140"/>
+  <startLoc x="120" y="300"/>
   <frames>12</frames>
   <frameWidth>55</frameWidth>
   <frameHeight>76</frameHeight>
@@ -78,8 +78,8 @@
   <speedY>0</speedY>
   <jumpPower>100.0</jumpPower>
   <transparency>true</transparency>
-  <acceleration>10.0</acceleration>
-  <maxSpeed>120.0</maxSpeed>
+  <acceleration>30.0</acceleration>
+  <maxSpeed>160.0</maxSpeed>
 </player>
 
 <star>

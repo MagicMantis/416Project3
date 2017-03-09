@@ -37,3 +37,4 @@ $(EXEC): $(OBJS)
 clean:
 	rm -rf $(OBJS)
 	rm -rf $(EXEC)
+	rm -rf frames/*

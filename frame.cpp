@@ -31,7 +31,6 @@ void Frame::draw(int x, int y, bool doFlip) const {
   x -= Viewport::getInstance().getX();
   y -= Viewport::getInstance().getY();
   SDL_Rect dest = {x, y, width, height };
-  SDL_RenderDrawRect(renderer, &dest);
   SDL_RendererFlip flip = (doFlip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
   SDL_RenderCopyEx(renderer, texture, NULL, &dest, 0, NULL, flip);
 }
