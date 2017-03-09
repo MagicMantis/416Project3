@@ -14,14 +14,10 @@ FrameFactory::~FrameFactory() {
 
   // Free multi-frame containers
   for (auto& mt : multiTextures) {
-    for (unsigned int i = 0; i < mt.second.size(); i++) {
-      SDL_DestroyTexture(mt.second[i]);
-    }
+    for (auto& m : mt.second) SDL_DestroyTexture(m);
   }
   for (auto& mf : multiFrames) {
-    for (unsigned int i = 0; i < mf.second.size(); i++) {
-      delete mf.second[i];
-    }
+    for (auto& m : mf.second) delete m;
   }
 }
 
