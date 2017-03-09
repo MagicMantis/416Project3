@@ -1,4 +1,4 @@
-CXX = clang++
+CXX = g++
 
 # Warnings frequently signal eventual errors:
 CXXFLAGS=`sdl2-config --cflags` -g -W -Wall -std=c++11 -Weffc++ -Wextra -pedantic -O0 -I `sdl2-config --prefix`/include/
@@ -21,6 +21,7 @@ OBJS = \
 	twoWayMultiSprite.o \
 	vector2f.o \
 	sludge.o \
+	player.o \
 	objectManager.o \
 	clock.o \
 	engine.o \

@@ -1,6 +1,6 @@
 #include "renderContext.h"
 
-RenderContext::RenderContext() : window(nullptr), renderer(nullptr) {
+RenderContext::RenderContext() : window(nullptr), renderer(nullptr), factory() {
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
 	  throw (std::string("Could not init SDL: ") + SDL_GetError());
  	}

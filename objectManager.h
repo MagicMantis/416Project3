@@ -19,7 +19,8 @@ public:
 	int getInstanceCount() const { return gameObjects.size(); }
 	Drawable* getObject(int index) const { return gameObjects[index]; }
 
-	std::vector<Drawable*>* getInstancesOfType(const std::string&);
+	Drawable* getObject(const std::string&);
+	std::vector<Drawable*>* getObjectsOfType(const std::string&);
 private:
 	ObjectManager() : gameObjects(), instanceSets() {}
 	std::vector<Drawable*> gameObjects;

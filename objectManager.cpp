@@ -1,13 +1,14 @@
 #include "objectManager.h"
 #include "sludge.h"
+#include "player.h"
 
 ObjectManager& ObjectManager::getInstance() {
   static ObjectManager objectManager;
   return objectManager;
 }
 
-
 void ObjectManager::initObjects() {
+	addObject( new Player("player") );
 	for (int i = 0; i < 100; i++) {
 		addObject( new Sludge() );
 	}
@@ -44,6 +45,10 @@ ObjectManager::~ObjectManager() {
 	for (auto& it : instanceSets) delete it.second;
 }
 
-std::vector<Drawable*>* ObjectManager::getInstancesOfType(const std::string& type) {
+Drawable* ObjectManager::getObject(const std::string& type) {
+	return (*instanceSets[type])[0];
+}
+
+std::vector<Drawable*>* ObjectManager::getObjectsOfType(const std::string& type) {
 	return instanceSets[type];
 }

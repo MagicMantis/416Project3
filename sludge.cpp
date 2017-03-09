@@ -18,12 +18,6 @@ Sludge::Sludge(const Vector2f& pos) : Sprite("sludge", pos),
 
 // }
 
-float clamp(float val, float low, float high) {
-	if (val < low) val = low; 
-	if (val > high) val = high;
-	return val;
-}
-
 void Sludge::update(Uint32 ticks) {
 	Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
 	setPosition(getPosition() + incr);
@@ -39,13 +33,13 @@ void Sludge::update(Uint32 ticks) {
 	if (vspeed < 200.0) accel[1] += gravityConstant;
 
 	//impact bounce
-	if (getY() > (getWorldHeight()-100)) {
+	if (getY() > (Gamedata::getInstance().getXmlInt("world/ground"))) {
 		float normalForce = (1.0)*pow((getY()-(getWorldHeight()-100)),2);
 		accel[1] -= normalForce;
 	}
 
 	//other objects
-	for (Drawable* d : *ObjectManager::getInstance().getInstancesOfType("sludge")) {
+	for (Drawable* d : *ObjectManager::getInstance().getObjectsOfType("sludge")) {
 		if (d == this) continue;
 		Sludge* sludge = (Sludge*) d;
 		float dist = getDistance(sludge);
@@ -59,9 +53,9 @@ void Sludge::update(Uint32 ticks) {
 	}
 
 	//seek mouse
-	Vector2f target;
-	target[0] = Gamedata::getInstance().getMouseX() + Viewport::getInstance().getX();
-	target[1] = Gamedata::getInstance().getMouseY() + Viewport::getInstance().getY();
+	Vector2f target = ObjectManager::getInstance().getObject("player")->getPosition();
+	//target[0] = Gamedata::getInstance().getMouseX() + Viewport::getInstance().getX();
+	//target[1] = Gamedata::getInstance().getMouseY() + Viewport::getInstance().getY();
 	float dist = getDistance(target);
 	float xratio = (getX()-target[0]) / dist;
 	float yratio = (getY()-target[1]) / dist;
@@ -72,6 +66,6 @@ void Sludge::update(Uint32 ticks) {
 	accel = accel - (dampingConstant * getVelocity());
 
 	setVelocity(getVelocity() + accel);
-	setVelocityX(clamp(getVelocityX(), -maxSpeed, maxSpeed));
-	setVelocityY(clamp(getVelocityY(), -maxSpeed, maxSpeed));
+	setVelocityX(Gamedata::clamp(getVelocityX(), -maxSpeed, maxSpeed));
+	setVelocityY(Gamedata::clamp(getVelocityY(), -maxSpeed, maxSpeed));
 }

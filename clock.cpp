@@ -31,6 +31,9 @@ Clock::Clock(const Clock& c) :
   paused(c.paused), 
   FRAME_CAP_ON(c.FRAME_CAP_ON), 
   PERIOD(c.PERIOD), 
+  frames(c.frames),
+  frameQueue(c.frameQueue),
+  frameMax(c.frameMax),
   timeAtStart(c.timeAtStart), timeAtPause(c.timeAtPause),
   currTicks(c.currTicks), prevTicks(c.prevTicks), ticks(c.ticks) 
   {
@@ -65,6 +68,14 @@ unsigned int Clock::getElapsedTicks() {
 }
 
 int Clock::getFps() const { 
+  if ( getSeconds() > 0 ) return frames/getSeconds();
+  else if ( getTicks() > 5000 and getFrames() == 0 ) {
+    throw std::string("Can't getFps if you don't increment the frames");
+  }
+  else return 0;
+}
+
+int Clock::getAvgFps() const {   
   if ( frameQueue.size() < frameMax ) return 0;
   float secs = (float)(SDL_GetTicks()-frameQueue.front())/1000.0;
   if ( getSeconds() > 0 ) return frameMax/secs;  
@@ -72,13 +83,6 @@ int Clock::getFps() const {
     throw std::string("Can't getFps if you don't increment the frames");
   }
   else return 0;
-}
-
-int Clock::getAvgFps() const { 
-  if ( getTicks() > 5000 and getFrames() == 0 ) {
-    throw std::string("Can't getFps if you don't increment the frames");
-  }
-  return 0;
 }
 
 void Clock::incrFrame() { 

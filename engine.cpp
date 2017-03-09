@@ -8,6 +8,7 @@
 #include "sludge.h"
 #include "gamedata.h"
 #include "engine.h"
+#include "player.h"
 #include "frameGenerator.h"
 
 Engine::~Engine() { 
@@ -22,8 +23,9 @@ Engine::Engine() :
   io( IOmod::getInstance() ),
   clock( Clock::getInstance() ),
   renderer( rc->getRenderer() ),
-  world("back", Gamedata::getInstance().getXmlInt("back/factor") ),
-  hills("hills", Gamedata::getInstance().getXmlInt("hills/factor") ),
+  far("farbuildings", Gamedata::getInstance().getXmlInt("farbuildings/factor") ),
+  back("backbuildings", Gamedata::getInstance().getXmlInt("backbuildings/factor") ),
+  fore("foreground", Gamedata::getInstance().getXmlInt("foreground/factor") ),
   viewport( Viewport::getInstance() ),
   // sprites(),
   currentSprite(-1),
@@ -37,10 +39,11 @@ Engine::Engine() :
 }
 
 void Engine::draw() const {
-  world.draw();
-  hills.draw();
+  far.draw();
+  back.draw();
+  fore.draw();
   std::stringstream strm;
-  strm << "fps: " << clock.getFps();
+  strm << "fps: " << clock.getAvgFps();
   io.writeText(strm.str(), 30, 60);
 
   //for(auto* s : sprites) s->draw();
@@ -53,13 +56,15 @@ void Engine::draw() const {
 void Engine::update(Uint32 ticks) {
   ObjectManager::getInstance().updateObjects(ticks);
   //for(auto* s : sprites) s->update(ticks);
-  world.update();
-  hills.update();
+  far.update();
+  back.update();
+  fore.update();
   viewport.update(); // always update viewport last
 }
 
 void Engine::switchSprite(){
-  currentSprite = ++currentSprite % ObjectManager::getInstance().getInstanceCount();
+  currentSprite++;
+  currentSprite = currentSprite % ObjectManager::getInstance().getInstanceCount();
   Viewport::getInstance().setObjectToTrack(ObjectManager::getInstance().getObject(currentSprite));
 }
 
@@ -78,6 +83,20 @@ void Engine::play() {
         if (keystate[SDL_SCANCODE_ESCAPE] || keystate[SDL_SCANCODE_Q]) {
           done = true;
           break;
+        }
+        if ( keystate[SDL_SCANCODE_RIGHT] ) {
+          Player* p = (Player*) ObjectManager::getInstance().getObject("player");
+          float accel = Gamedata::getInstance().getXmlFloat("player/acceleration");
+          p->accelerate(accel);
+        }
+        if ( keystate[SDL_SCANCODE_LEFT] ) {
+          Player* p = (Player*) ObjectManager::getInstance().getObject("player");
+          float accel = Gamedata::getInstance().getXmlFloat("player/acceleration");
+          p->accelerate(-accel);
+        }
+        if ( keystate[SDL_SCANCODE_SPACE] ) {
+          Player* p = (Player*) ObjectManager::getInstance().getObject("player");
+          p->jump();
         }
         if ( keystate[SDL_SCANCODE_P] ) {
           if ( clock.isPaused() ) clock.unpause();

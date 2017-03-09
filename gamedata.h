@@ -20,7 +20,8 @@ public:
   bool  checkTag(const std::string&)const;
   int getMouseX() const { return mouseX; }
   int getMouseY() const { return mouseY; }
-  void updateMouse(int x, int y) { mouseX = x; mouseY = y; std::cout << mouseX << " " << mouseY << "\n";}
+  void updateMouse(int x, int y) { mouseX = x; mouseY = y; }
+  static float clamp(const float, const float, const float);
 
 private:
   ParseXML parser;

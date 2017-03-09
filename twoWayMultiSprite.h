@@ -12,10 +12,10 @@ public:
 
   virtual void draw() const;
   virtual void update(Uint32 ticks);
+protected:
   void changeDirection() { facingRight = facingRight ? false : true; }
   void setDirection(bool newDir) { facingRight = newDir; }
-
-protected:
+private:
   bool facingRight;
 };
 #endif  

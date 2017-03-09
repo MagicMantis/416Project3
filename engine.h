@@ -20,7 +20,7 @@ private:
   Clock& clock;
 
   SDL_Renderer * const renderer;
-  World world, hills;
+  World far, back, fore;
   Viewport& viewport;
 
   // ObjectManager objectManager;

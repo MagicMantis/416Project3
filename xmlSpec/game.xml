@@ -17,28 +17,36 @@
 <gravityConstant>10.0</gravityConstant>
 <dampingConstant>0.05</dampingConstant>
 <maxSpeed>300.0</maxSpeed>
+<groundHeight>20.0</groundHeight>
 
 <view>
-  <width>854</width>
-  <height>480</height>
+  <width>512</width>
+  <height>384</height>
 </view>
 
 <world>
-  <width>2000</width>
-  <height>900</height>
+  <width>3000</width>
+  <height>384</height>
+  <ground>300</ground>
 </world>
 
-<back>
-  <file>images/checkerboard.bmp</file>
-  <factor>1</factor>
+<farbuildings>
+  <file>images/far-buildings2.png</file>
+  <factor>3</factor>
   <transparency>false</transparency>
-</back>
+</farbuildings>
 
-<hills>
-  <file>images/background.png</file>
+<backbuildings>
+  <file>images/back-buildings2.png</file>
   <factor>2</factor>
   <transparency>false</transparency>
-</hills>
+</backbuildings>
+
+<foreground>
+  <file>images/foreground2.png</file>
+  <factor>1</factor>
+  <transparency>false</transparency>
+</foreground>
 
 <font name="font">
   <file>fonts/arial.ttf</file>
@@ -59,15 +67,20 @@
   <transparency>true</transparency>
 </spinstar>
 
-<spinstar2>
-  <file>images/spinstar2.png</file>
+<player>
+  <file>images/running.png</file>
   <startLoc x="120" y="140"/>
-  <frames>4</frames>
-  <frameInterval>20</frameInterval>
-  <speedX>-150</speedX>
-  <speedY>150</speedY>
+  <frames>12</frames>
+  <frameWidth>55</frameWidth>
+  <frameHeight>76</frameHeight>
+  <frameInterval>60</frameInterval>
+  <speedX>0</speedX>
+  <speedY>0</speedY>
+  <jumpPower>100.0</jumpPower>
   <transparency>true</transparency>
-</spinstar2>
+  <acceleration>10.0</acceleration>
+  <maxSpeed>120.0</maxSpeed>
+</player>
 
 <star>
   <file>images/yellowstar32.png</file>
@@ -81,7 +94,7 @@
   <file>images/sludge.png</file>
   <transparency>true</transparency>
   <radius>12.0</radius>
-  <seekSpeed>5.0</seekSpeed>
+  <seekSpeed>7.0</seekSpeed>
 </sludge>
 
 <greenorb>

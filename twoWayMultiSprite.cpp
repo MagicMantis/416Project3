@@ -13,5 +13,6 @@ void TwoWayMultiSprite::draw() const {
 }
 
 void TwoWayMultiSprite::update(Uint32 ticks) { 
-  MultiSprite::update(ticks);
+  advanceFrame(ticks);
+  facingRight = (getVelocityX() >= 0);
 }

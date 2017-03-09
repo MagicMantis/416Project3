@@ -13,7 +13,9 @@ Gamedata::~Gamedata( ) { }
 
 Gamedata::Gamedata(const string& fn ) :
   parser(fn),
-  gameData(parser.getXmlData())
+  gameData(parser.getXmlData()),
+  mouseX(0),
+  mouseY(0)
 { }
 
 float Gamedata::getRandInRange(int min, int max) const {
@@ -78,5 +80,15 @@ void Gamedata::displayData() const {
     ++ptr;
   }
 }
+
+
+// helper function
+float Gamedata::clamp(const float val, const float low, const float high) {
+  int result = val;
+  if (result < low) result = low; 
+  if (result > high) result = high;
+  return result;
+}
+
 
 

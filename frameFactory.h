@@ -26,7 +26,9 @@ friend class RenderContext;
   FrameFactory() : 
     gdata( Gamedata::getInstance() ), 
     textures(),
-    frames()
+    frames(),
+    multiTextures(),
+    multiFrames()
   {}
   FrameFactory(const FrameFactory&) = delete;
   FrameFactory& operator=(const FrameFactory&) = delete;
